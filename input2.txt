@@ -1,5 +1,0 @@
-this file should
-fail becaue this has punctuation
-and that's no good!
-
-:(

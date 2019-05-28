@@ -60,3 +60,7 @@ def process_line(line):
 
 class PunctuationFound(Exception):
     pass
+
+
+if __name__ == '__main__':
+    main()
