@@ -8,6 +8,10 @@ logger = logging.getLogger(__name__)
 
 
 def main(args_list=None):
+    """
+    Takes an input file and creates a new out.txt file where it prints
+    the vowels of the sentences if there is no punctuation present.
+    """
     args = parse_command_line(args_list)
     process_file(args.input_file)
 
