@@ -21,7 +21,7 @@ def parse_command_line(args_list=None):
     """
     parser = ArgumentParser(description=main.__doc__)
     parser.add_argument(
-        "input_file", nargs="?", help="Required unless -g is provided"
+        "input_file", help="Required unless -g is provided"
     )
     args = parser.parse_args(args_list)
     return args
