@@ -8,7 +8,7 @@ The idea is that you the programmer have MISSED these bugs in your program.
 import logging
 from argparse import ArgumentParser
 from pathlib import Path
-from string import punctuation
+from string import punctuation, digits
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +21,8 @@ def main(args_list=None):
     be turned into more error messages without crashing the program.
     """
     args = parse_command_line(args_list)
-    process_file(args.input_file)
+    result = process_file(args.input_file)
+    return result
 
 
 def parse_command_line(args_list=None):
@@ -41,9 +42,9 @@ def process_file(path):
     lines = []
     try:
         with open(path) as inputfile:
-            with open(path.stem + "-out.txt", "w") as output:
-                for line in inputfile:
-                    output.write(process_line(line) + "\n")
+            for line in inputfile:
+                lines.append(process_line(line))
+        generate_output(lines, path)
     except FileNotFoundError:
         logger.exception("File not found.")
     except PunctuationFound:
@@ -51,10 +52,20 @@ def process_file(path):
     return exit_code
 
 
+def generate_output(lines, path):
+    if path.parent != '.':
+        path = path.parent / path.stem
+    with open(str(path) + "-out.txt", "w") as output:
+        for line in lines:
+            output.write(line + "\n")
+
+
 def process_line(line):
     for char in line:
         if char in punctuation:
             raise PunctuationFound("No punctuation permitted in file.")
+        elif char in digits:
+            logger.error("Digits found but continuing.")
     return ''.join([v for v in 'aeiou' if v in line])
 
 
