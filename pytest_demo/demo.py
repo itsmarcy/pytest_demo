@@ -33,11 +33,9 @@ def process_file(path):
     lines = []
     try:
         with open(path) as inputfile:
-            for line in inputfile:
-                lines.append(process_line(line))
-        with open(path.stem + "-out.txt", "w") as output:
-            for line in lines:
-                output.write(line + "\n")
+            with open(path.stem + "-out.txt", "w") as output:
+                for line in inputfile:
+                    output.write(process_line(line) + "\n")
     except FileNotFoundError:
         logger.exception("File not found.")
     except PunctuationFound:
