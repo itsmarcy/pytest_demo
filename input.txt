@@ -1,0 +1,4 @@
+This is an input file
+that should totally work
+because there is no punctuation
+or anything flagged as errors
